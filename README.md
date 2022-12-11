@@ -1,16 +1,44 @@
-# sharedprefs
+# ПРАКТИЧЕСКАЯ РАБОТА №5
 
-A new Flutter project.
+## Работа с передачей данных и библиотекой SharedPreferences.
 
-## Getting Started
+<b>Цель работы:</b>реализовать передачу данных через параметр arguments и сохранение данных в SharedPrefrences. Реализовать восстановление данных после закрытия приложения. Если есть данные в SharedPrefrences открыть 2 экран, если данных нет, то открыть 1 экран. Так же реализовать восстановление темы приложения.
+Ход работы:
+Вначале докачиваем библиотеку, для работы с записью данных.
+ 
+<img  src="assets/sharePrefs.png" width=300 height=50> 
 
-This project is a starting point for a Flutter application.
+Рисунок 28 - Shared_Preferences
 
-A few resources to get you started if this is your first Flutter project:
+Затем прописываем код, который позволяет инициализировать SharedPreferences и указанные для инициализации ключи.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img  src="assets/initialSharePrefs.png" width=400 height=500> 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Рисунок 29 - Инициализация SharedPrefernces
+
+
+Далее необходимо прописать код для того, чтобы передать ключи с данными на другое окно с помощью arguments, а также необходимо прописать на кнопках методы для записи данных по ключам.
+ 
+<img  src="assets/GetSetSharePrefs.png" width=400 height=500> 
+
+Рисунок 30 -Передача и запись данных с помощью 
+
+sharedPreferences
+
+Далее прописываем код второго окна, где будет происходить принятие переданных данных, а также вывод данных хранящихся в ключах и смена темы в зависимости от ключа.
+
+<img  src="assets/Screen2.png" width=400 height=500> 
+ 
+Рисунок 31 - Второй экран с выводом данных из arguments
+
+Далее проверяем результат работы программы и сохранение данных.
+ 
+<img  src="assets/EndScreen2.png" width=500 height=250> 
+
+Рисунок 32 - Экран 2
+ 
+<img  src="assets/MainScreen.png" width=500 height=500> 
+
+Рисунок 33 - Главный экран
+
+<b>Вывод:</b> в ходе практической работы удалось реализовать передачу данных через параметр arguments и сохранение данных в SharedPrefrences, а также реализовать восстановление данных после закрытия приложения.

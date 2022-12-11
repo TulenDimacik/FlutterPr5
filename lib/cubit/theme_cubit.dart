@@ -6,15 +6,12 @@ import 'package:sharedprefs/cubit/theme_state.dart';
 class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit() : super(ThemeState(theme: ThemeData.light()));
 
-    late SharedPreferences sharedPreferences;
-
-  void darkTheme() {
-    final stateUpdate = ThemeState(theme: ThemeData.dark());
-    emit(ThemeState(theme: stateUpdate.theme));
-  }
-
-  void lightTheme() {
-    final stateUpdate = ThemeState(theme: ThemeData.light());
-    emit(ThemeState(theme: stateUpdate.theme));
+   void switchTheme(){
+    if(state.theme == ThemeData.light()){
+      emit(ThemeState(theme: ThemeData.dark()));
+    }
+    else{
+      emit(ThemeState(theme: ThemeData.light()));
+    }
   }
 }

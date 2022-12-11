@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sharedprefs/screen.dart';
-
 import 'cubit/theme_cubit.dart';
 import 'cubit/theme_state.dart';
 
@@ -55,16 +54,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
     sharedPreferences.setInt('counter', _counter);
   }
+  
 
   @override
   Future<void> initShared() async {
     sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.containsKey('counter') &&
-        sharedPreferences.containsKey('stroka')) {
+        sharedPreferences.containsKey('stroka') &&
+        sharedPreferences.containsKey('theme')) {
       // ignore: use_build_context_synchronously
       Navigator.pushNamed(context, Screen.routeName, arguments: {
         'stroka1': sharedPreferences.getString('stroka'),
-        'count': sharedPreferences.getInt('counter')
+        'count': sharedPreferences.getInt('counter'),
+        'theme': sharedPreferences.getInt('theme'),
       });
     }
   }
@@ -75,7 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter = sharedPreferences.getInt('counter') ?? 0;
       stroka = sharedPreferences.getString('stroka') ?? "";
       theme = sharedPreferences.getInt('theme') ?? 0;
-      
     });
     super.initState();
   }
@@ -114,7 +115,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Screen.routeName,
                     arguments: {
                       'stroka1': sharedPreferences.getString('stroka'),
-                      'count': sharedPreferences.getInt('counter')
+                      'count': sharedPreferences.getInt('counter'),
+                      'theme': sharedPreferences.getInt('theme'),
                     },
                   );
                 },
@@ -125,22 +127,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             FloatingActionButton(
               onPressed: () {
-                 if(sharedPreferences.getInt('theme')==1)
-                 {
-                 context.read<ThemeCubit>().lightTheme();  
-                 sharedPreferences.setInt('theme', 0);
-                 }
-                 else
-                 {
-                    context.read<ThemeCubit>().darkTheme();  
-                    sharedPreferences.setInt('theme', 1);
-                 }
-                    
+                context.read<ThemeCubit>().switchTheme();
+                if (context.read<ThemeCubit>().state.theme ==
+                    ThemeData.light()) {
+                  sharedPreferences.setInt('theme', 1);
+                } else {
+                  sharedPreferences.setInt('theme', 0);
+                }
               },
               tooltip: 'Theme',
               child: const Icon(Icons.thermostat),
             ),
-           // Text(sharedPreferences.getInt('theme').toString())
           ],
         ),
       ),
